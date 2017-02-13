@@ -1,6 +1,6 @@
 -- Mod for Farming Simulator 17
 -- Mod: Animal Notifications
--- Author: MCB
+-- Author: MCB, MX11
 
 local modDesc = loadXMLFile("modDesc", g_currentModDirectory .. "modDesc.xml");
 
@@ -117,7 +117,7 @@ function animalNotification:loadMap()
 	--set up sound
 	self.previousActiveNotifications = 0;
 	self.notificationSound = createSample("notify");
-	loadSample(self.notificationSound, "C:/Program Files (x86)/Farming Simulator 2017/data/maps/sounds/radio.wav", false);
+	loadSample(self.notificationSound, getAppBasePath().."data/maps/sounds/radio.wav", false);
 
 	--20 minute initial animal update lag
 	self.initializing = true;
@@ -129,36 +129,37 @@ function animalNotification:makeNotification(issue, animal, numAnimals)
 	local message = "";
 
 	if issue == "general" then
-		message = "Take care of your animals!";
+		message = g_i18n:getText("AN_GENERAL");
 
 	elseif issue == "egg" then
-		message = "Collect your eggs!";
+		message = g_i18n:getText("AN_COLLECTEGGS");
 
 	elseif issue == "wool" then
-		message = "Wool pallet is full!";
+		message = g_i18n:getText("AN_WOOLPALLET");
 
 	elseif issue == "birth" then
-		message = string.format("A %s has been born!", animal);
+		message = string.format(g_i18n:getText("AN_ANIMALBORN"), g_i18n:getText("shopItem_"..animal));
 
 	elseif issue == "cleanliness" then
-		message = string.format("Clean your %s area!", animal);
+		message = string.format(g_i18n:getText("AN_CLEANAREA"), g_i18n:getText("ui_statisticView_"..animal));
 
 	elseif issue == "productivity" then
-		message = string.format("%s productivity is low!", animal);
+		message = string.format(g_i18n:getText("AN_PRODUCTIVITYLOW"), g_i18n:getText("ui_statisticView_"..animal));
 
 	elseif issue == "slurry" then
-		message = string.format("Your %s slurry tank is full!", animal);
+		message = string.format(g_i18n:getText("AN_SLURRYTANKFULL"), g_i18n:getText("ui_statisticView_"..animal));
 
 	elseif issue == "manure" then
-		message = string.format("Your %s manure bin is full!", animal);
+		message = string.format(g_i18n:getText("AN_MANUREFULL"), g_i18n:getText("ui_statisticView_"..animal));
 
 	else
 		if numAnimals == 1 then
-			message = string.format("Your %s needs %s!", animal, issue);
+			message = string.format(g_i18n:getText("AN_ANIMALNEEDS"), g_i18n:getText("ui_statisticView_"..animal), issue);
+			
 		elseif animal == "sheep" then
-			message = string.format("Your %s need %s!", animal, issue);
+			message = string.format(g_i18n:getText("AN_ANIMALNEEDS"), g_i18n:getText("ui_statisticView_"..animal), issue);
 		else
-			message = string.format("Your %ss need %s!", animal, issue);
+			message = string.format(g_i18n:getText("AN_ANIMALNEEDS"), g_i18n:getText("ui_statisticView_"..animal), issue);
 		end;
 	end;
 
@@ -349,7 +350,7 @@ function animalNotification:checkSheep()
 	end;
 
 		--grass
-	if self.haveSheep and math.floor(g_currentMission.husbandries.sheep:getFillLevel(FillUtil.FILLTYPE_GRASS_WINDROW)) < self.sheepGrassThreshold then
+	if self.haveSheep and math.floor(g_currentMission.husbandries.sheep:getFillLevel(FillUtil.FILLTYPE_GRASS_WINDROW) + g_currentMission.husbandries.sheep:getFillLevel(FillUtil.FILLTYPE_DRYGRASS_WINDROW)) < self.sheepGrassThreshold then
 		if self.notify.grassMessageSheepActive[1] == false then
 			local message = animalNotification:makeNotification("grass", "sheep", g_currentMission.husbandries.sheep.totalNumAnimals);
 			table.insert(self.notifications, {"sheepGrass", message});

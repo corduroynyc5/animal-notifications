@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="30">
-    <author>MCB</author>
+<modDesc descVersion="32">
+    <author>MCB, MX11</author>
 	<title>
 		<en>Animal Notifications</en>
 		<de>Animal Notifications</de>
@@ -21,6 +21,15 @@
         <sourceFile filename="AnimalNotifications.lua" />
     </extraSourceFiles>
 	<l10n>
+		<text name="AN_GENERAL"><de>Kümmern Sie sich um Ihre Tiere!</de><en>Take care of your animals!</en></text>	
+		<text name="AN_COLLECTEGGS"><de>Sammeln Sie Ihre Eier!</de><en>Collect your eggs!</en></text>	
+		<text name="AN_WOOLPALLET"><de>Eine Wollpalette ist voll!</de><en>Wool pallet is full!</en></text>	
+		<text name="AN_ANIMALBORN"><de>Ein %s wurde geboren! </de><en>A %s has been born!</en></text>	
+		<text name="AN_CLEANAREA"><de>Reinigen Sie den Bereich der %s!</de><en>Clean your %s area!</en></text>	
+		<text name="AN_PRODUCTIVITYLOW"><de>Die Produktivität der %s ist niedrig!</de><en>%s productivity is low!</en></text>	
+		<text name="AN_SLURRYTANKFULL"><de>Die Güllegrube der %s ist voll!</de><en>Your %s slurry tank is full!</en></text>	
+		<text name="AN_MANUREFULL"><de>Der Misthaufen der %s ist voll!</de><en>Your %s manure bin is full!</en></text>	
+		<text name="AN_ANIMALNEEDS"><de>Ihre %s brauchen %s!</de><en>Your %s needs %s!</en></text>	
 		<text name="input_NOTE_DELAY">
             <en>Snooze Notifications</en>
         </text>
