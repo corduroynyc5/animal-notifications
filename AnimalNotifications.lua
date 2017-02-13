@@ -1,6 +1,6 @@
 -- Mod for Farming Simulator 17
 -- Mod: Animal Notifications
--- Author: MCB, MX11
+-- Author: MCB  with contributions from MX11(added german translations, made sound path universal, added dryGrass to sheep feed section)
 
 local modDesc = loadXMLFile("modDesc", g_currentModDirectory .. "modDesc.xml");
 
@@ -141,25 +141,25 @@ function animalNotification:makeNotification(issue, animal, numAnimals)
 		message = string.format(g_i18n:getText("AN_ANIMALBORN"), g_i18n:getText("shopItem_"..animal));
 
 	elseif issue == "cleanliness" then
-		message = string.format(g_i18n:getText("AN_CLEANAREA"), g_i18n:getText("ui_statisticView_"..animal));
+		message = string.format(g_i18n:getText("AN_CLEANAREA"), g_i18n:getText("shopItem_"..animal));
 
 	elseif issue == "productivity" then
-		message = string.format(g_i18n:getText("AN_PRODUCTIVITYLOW"), g_i18n:getText("ui_statisticView_"..animal));
+		message = string.format(g_i18n:getText("AN_PRODUCTIVITYLOW"), g_i18n:getText("shopItem_"..animal));
 
 	elseif issue == "slurry" then
-		message = string.format(g_i18n:getText("AN_SLURRYTANKFULL"), g_i18n:getText("ui_statisticView_"..animal));
+		message = string.format(g_i18n:getText("AN_SLURRYTANKFULL"), g_i18n:getText("shopItem_"..animal));
 
 	elseif issue == "manure" then
-		message = string.format(g_i18n:getText("AN_MANUREFULL"), g_i18n:getText("ui_statisticView_"..animal));
+		message = string.format(g_i18n:getText("AN_MANUREFULL"), g_i18n:getText("shopItem_"..animal));
 
 	else
 		if numAnimals == 1 then
-			message = string.format(g_i18n:getText("AN_ANIMALNEEDS"), g_i18n:getText("ui_statisticView_"..animal), issue);
+			message = string.format(g_i18n:getText("AN_ANIMALNEEDS1"), g_i18n:getText("shopItem_"..animal), issue);
 			
 		elseif animal == "sheep" then
-			message = string.format(g_i18n:getText("AN_ANIMALNEEDS"), g_i18n:getText("ui_statisticView_"..animal), issue);
+			message = string.format(g_i18n:getText("AN_ANIMALNEEDS2"), g_i18n:getText("shopItem_"..animal), issue);
 		else
-			message = string.format(g_i18n:getText("AN_ANIMALNEEDS"), g_i18n:getText("ui_statisticView_"..animal), issue);
+			message = string.format(g_i18n:getText("AN_ANIMALNEEDS3"), g_i18n:getText("shopItem_"..animal), issue);
 		end;
 	end;
 
@@ -338,6 +338,13 @@ function animalNotification:checkSheep()
 			table.insert(self.notifications, {"sheepWater", message});
 			self.notify.waterMessageSheepActive[1] = true;
 			self.sheepIssues = self.sheepIssues + 1;
+		elseif self.numSheepChanged then 
+			local message = animalNotification:makeNotification("water", "sheep", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "sheepWater" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.haveSheep == false or self.notify.waterMessageSheepActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -356,6 +363,13 @@ function animalNotification:checkSheep()
 			table.insert(self.notifications, {"sheepGrass", message});
 			self.notify.grassMessageSheepActive[1] = true;
 			self.sheepIssues = self.sheepIssues + 1;
+		elseif self.numSheepChanged then 
+			local message = animalNotification:makeNotification("grass", "sheep", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "sheepGrass" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.haveSheep == false or self.notify.grassMessageSheepActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -527,6 +541,13 @@ function animalNotification:checkCows()
 			table.insert(self.notifications, {"cowWater", message});
 			self.notify.waterMessageCowActive[1] = true;
 			self.cowIssues = self.cowIssues + 1;
+		elseif self.numCowsChanged then 
+			local message = animalNotification:makeNotification("water", "cow", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "cowWater" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.haveCows == false or self.notify.waterMessageCowActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -545,6 +566,13 @@ function animalNotification:checkCows()
 			table.insert(self.notifications, {"cowStraw", message});
 			self.notify.strawMessageCowActive[1] = true;
 			self.cowIssues = self.cowIssues + 1;
+		elseif self.numCowsChanged then 
+			local message = animalNotification:makeNotification("straw", "cow", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "cowStraw" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.haveCows == false or self.notify.strawMessageCowActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -563,6 +591,13 @@ function animalNotification:checkCows()
 			table.insert(self.notifications, {"cowGrass", message});
 			self.notify.grassMessageCowActive[1] = true;
 			self.cowIssues = self.cowIssues + 1;
+		elseif self.numCowsChanged then 
+			local message = animalNotification:makeNotification("grass", "cow", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "cowGrass" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.haveCows == false or self.notify.grassMessageCowActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -581,6 +616,13 @@ function animalNotification:checkCows()
 			table.insert(self.notifications, {"cowSilage", message});
 			self.notify.silageMessageActive[1] = true;
 			self.cowIssues = self.cowIssues + 1;
+		elseif self.numCowsChanged then 
+			local message = animalNotification:makeNotification("silage", "cow", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "cowSilage" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.haveCows == false or self.notify.silageMessageActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -599,6 +641,13 @@ function animalNotification:checkCows()
 			table.insert(self.notifications, {"cowTMR", message});
 			self.notify.tmrMessageActive[1] = true;
 			self.cowIssues = self.cowIssues + 1;
+		elseif self.numCowsChanged then 
+			local message = animalNotification:makeNotification("Total Mixed Ration", "cow", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "cowTMR" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.haveCows == false or self.notify.tmrMessageActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -778,6 +827,13 @@ function animalNotification:checkPigs()
 			table.insert(self.notifications, {"pigWater", message});
 			self.notify.waterMessagePigActive[1] = true;
 			self.pigIssues = self.pigIssues + 1;
+		elseif self.numPigsChanged then 
+			local message = animalNotification:makeNotification("water", "pig", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "pigWater" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.havePigs == false or self.notify.waterMessagePigActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -796,6 +852,13 @@ function animalNotification:checkPigs()
 			table.insert(self.notifications, {"pigStraw", message});
 			self.notify.strawMessagePigActive[1] = true;
 			self.pigIssues = self.pigIssues + 1;
+		elseif self.numPigsChanged then 
+			local message = animalNotification:makeNotification("straw", "pig", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "pigStraw" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.havePigs == false or self.notify.strawMessagePigActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -814,6 +877,13 @@ function animalNotification:checkPigs()
 			table.insert(self.notifications, {"pigCorn", message});
 			self.notify.cornMessageActive[1] = true;
 			self.pigIssues = self.pigIssues + 1;
+		elseif self.numPigsChanged then 
+			local message = animalNotification:makeNotification("corn", "pig", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "pigCorn" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.havePigs == false or self.notify.cornMessageActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -832,6 +902,13 @@ function animalNotification:checkPigs()
 			table.insert(self.notifications, {"pigGrain", message});
 			self.notify.grainMessageActive[1] = true;
 			self.pigIssues = self.pigIssues + 1;
+		elseif self.numPigsChanged then 
+			local message = animalNotification:makeNotification("grain", "pig", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "pigGrain" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.havePigs == false or self.notify.grainMessageActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -850,6 +927,13 @@ function animalNotification:checkPigs()
 			table.insert(self.notifications, {"pigProtein", message});
 			self.notify.proteinMessageActive[1] = true;
 			self.pigIssues = self.pigIssues + 1;
+		elseif self.numPigsChanged then 
+			local message = animalNotification:makeNotification("protein", "pig", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "pigProtein" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.havePigs == false or self.notify.proteinMessageActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -868,6 +952,13 @@ function animalNotification:checkPigs()
 			table.insert(self.notifications, {"pigRoots", message});
 			self.notify.root_cropsMessageActive[1] = true;
 			self.pigIssues = self.pigIssues + 1;
+		elseif self.numPigsChanged then 
+			local message = animalNotification:makeNotification("root crops", "pig", self.numPigs);
+			for k, v in pairs(self.notifications) do
+				if v[1] == "pigRoots" then
+					v[2] = message;
+				end;
+			end;
 		end;
 	elseif self.havePigs == false or self.notify.root_cropsMessageActive[1] then
 		for k, v in pairs(self.notifications) do
@@ -907,17 +998,9 @@ function animalNotification:update(dt)
 		
 	-- end;
 
+	--20 minute initial animal update lag
 	self.initializing = true;
 
-	--timeScale
-	if self.timeScale ~= g_currentMission.loadingScreen.missionInfo.timeScale then
-		self.timeScaleChanged = true;
-		self.timeScale = g_currentMission.loadingScreen.missionInfo.timeScale
-	else
-		self.timeScaleChanged = false;
-	end;
-
-	--20 minute initial animal update lag
 	if self.initializing then
 		if self.initialMilliseconds + (dt * self.timeScale) >= 60000 then
 			self.initialMilliseconds = self.initialMilliseconds - 60000;
@@ -926,6 +1009,14 @@ function animalNotification:update(dt)
 				self.initializing = false;
 			end;
 		end;
+	end;
+	
+	--timeScale
+	if self.timeScale ~= g_currentMission.loadingScreen.missionInfo.timeScale then
+		self.timeScaleChanged = true;
+		self.timeScale = g_currentMission.loadingScreen.missionInfo.timeScale
+	else
+		self.timeScaleChanged = false;
 	end;
 
 	--chickens

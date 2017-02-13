@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="32">
-    <author>MCB, MX11</author>
+<modDesc descVersion="30">
+    <author>MCB with contributions from MX11</author>
 	<title>
 		<en>Animal Notifications</en>
-		<de>Animal Notifications</de>
+		<de>TierMitteilungen</de>
 	</title>
 	<description>
 		<en>
@@ -11,7 +11,7 @@
 ]]>
 		</en>
 		<de>
-<![CDATA[Mod for Farming Simulator 17: Displays dropdown notifications when animals need attention.
+<![CDATA[Mod for Farming Simulator 17: Dropdown-Meldungen werden angezeigt, wenn Tiere aufgepasst werden müssen.
 ]]>
 		</de>
 	</description>
@@ -21,15 +21,17 @@
         <sourceFile filename="AnimalNotifications.lua" />
     </extraSourceFiles>
 	<l10n>
-		<text name="AN_GENERAL"><de>Kümmern Sie sich um Ihre Tiere!</de><en>Take care of your animals!</en></text>	
-		<text name="AN_COLLECTEGGS"><de>Sammeln Sie Ihre Eier!</de><en>Collect your eggs!</en></text>	
-		<text name="AN_WOOLPALLET"><de>Eine Wollpalette ist voll!</de><en>Wool pallet is full!</en></text>	
-		<text name="AN_ANIMALBORN"><de>Ein %s wurde geboren! </de><en>A %s has been born!</en></text>	
-		<text name="AN_CLEANAREA"><de>Reinigen Sie den Bereich der %s!</de><en>Clean your %s area!</en></text>	
-		<text name="AN_PRODUCTIVITYLOW"><de>Die Produktivität der %s ist niedrig!</de><en>%s productivity is low!</en></text>	
-		<text name="AN_SLURRYTANKFULL"><de>Die Güllegrube der %s ist voll!</de><en>Your %s slurry tank is full!</en></text>	
-		<text name="AN_MANUREFULL"><de>Der Misthaufen der %s ist voll!</de><en>Your %s manure bin is full!</en></text>	
-		<text name="AN_ANIMALNEEDS"><de>Ihre %s brauchen %s!</de><en>Your %s needs %s!</en></text>	
+		<text name="AN_GENERAL"><en>Take care of your animals!</en><de>Kümmern Sie sich um Ihre Tiere!</de></text>	
+		<text name="AN_COLLECTEGGS"><en>Collect your eggs!</en><de>Sammeln Sie Ihre Eier!</de></text>	
+		<text name="AN_WOOLPALLET"><en>Wool pallet is full!</en><de>Eine Wollpalette ist voll!</de></text>	
+		<text name="AN_ANIMALBORN"><en>A %s has been born!</en><de>Ein %s wurde geboren! </de></text>	
+		<text name="AN_CLEANAREA"><en>Clean your %s area!</en><de>Reinigen Sie den Bereich der %s!</de></text>	
+		<text name="AN_PRODUCTIVITYLOW"><en>%s productivity is low!</en><de>Die Produktivität der %s ist niedrig!</de></text>	
+		<text name="AN_SLURRYTANKFULL"><en>Your %s slurry tank is full!</en><de>Die Güllegrube der %s ist voll!</de></text>	
+		<text name="AN_MANUREFULL"><en>Your %s manure bin is full!</en><de>Der Misthaufen der %s ist voll!</de></text>	
+		<text name="AN_ANIMALNEEDS1"><en>Your %s needs %s!</en><de>Ihr %s braucht %s!</de></text>	
+		<text name="AN_ANIMALNEEDS2"><en>Your %s need %s!</en><de>Deine %s brauchen %s!</de></text>
+		<text name="AN_ANIMALNEEDS3"><en>Your %ss need %s!</en><de>Ihre %s brauchen %s!</de></text>
 		<text name="input_NOTE_DELAY">
             <en>Snooze Notifications</en>
         </text>
